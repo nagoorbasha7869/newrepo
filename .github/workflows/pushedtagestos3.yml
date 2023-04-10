@@ -1,0 +1,42 @@
+name: Push Docker image tags to S3 bucket
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  push-to-s3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          
+      - name: Pull Nginx image
+        uses: docker/pull-request-action@v2
+        with:
+          repository: nginx
+          tag: v1.0
+
+      - name: Tag Docker image
+        run: |
+          docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
+          docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
+
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
+          docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update && sudo apt-get install -y awscli
+
+      - name: Upload Docker image to S3 bucket
+        run: |
+          aws s3 cp ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} s3://${S3_BUCKET_NAME}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}
