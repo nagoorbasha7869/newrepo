@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+env:
+   DOCKER_IMAGE_NAME: nginx
+   DOCKER_IMAGE_TAG: v1.0
+   DOCKER_REGISTRY: https://hub.docker.com/
+   
 jobs:
   push-to-s3:
     runs-on: ubuntu-latest
