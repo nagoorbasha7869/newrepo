@@ -12,6 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: List repository contents
+        run: ls -R
+
       - name: Download GitHub Action
         uses: nagoorbasha7869/myownrepository@main
         with:
