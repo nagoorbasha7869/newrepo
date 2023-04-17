@@ -15,6 +15,10 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run local action
+        uses: ./
       - name: Trigger workflow in another repository
         uses: nagoorbasha7869/myownrepository@v1
         with:
