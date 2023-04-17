@@ -10,6 +10,6 @@ jobs:
       - name: Trigger
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: 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
           repository: nagoorbasha7869/myownrepository
           event-type: hello_world
