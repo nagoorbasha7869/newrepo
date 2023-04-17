@@ -1,14 +1,25 @@
-name: Trigger Hello World
+name: Dispatch Workflow
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'The owner and name of the repository to dispatch the workflow in.'
+        required: true
+        default: 'nagoorbasha7869/myownrepository'
+      event-type:
+        description: 'The type of event to trigger in the target repository.'
+        required: true
+        default: 'hello_world'
+
 jobs:
-  trigger_hello:
+  dispatch:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger
+      - name: Trigger workflow in another repository
         uses: peter-evans/repository-dispatch@v1
         with:
-          repository: nagoorbasha7869/myownrepository
-          event-type: hello_world
+          token: ${{ secrets.MY_ACCESS_TOKEN }}
+          repository: ${{ github.event.inputs.repository }}
+          event-type: ${{ github.event.inputs.event-type }}
+          client-payload: '{}'
+
