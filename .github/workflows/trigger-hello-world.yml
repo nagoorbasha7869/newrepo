@@ -1,4 +1,4 @@
-name: Trigger Hello World
+name: Trigger Workflow
 
 on:
   push:
@@ -6,14 +6,12 @@ on:
       - main
 
 jobs:
-  trigger:
+  job-name:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Hello World
+      - name: Trigger Workflow
         uses: nagoorbasha7869/myownrepository@main
         with:
-          token: ${{ secrets.MY_ACCESS_TOKEN }}
+          token: ${{ secrets.MY_ACCESS_TOKEN}}
           repository: nagoorbasha7869/myownrepository
-          workflow: hello-world.yml
-
-
+          event-type: trigger-workflow
