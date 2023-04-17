@@ -1,17 +1,15 @@
-name: CI
+name: Trigger Hello World
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  workflow_dispatch:
-
+    branches:
+      - main
 jobs:
-  build:
+  trigger_hello:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Trigger Test Repo workflow
-        run: |
-          curl -H "Accept: application/vnd.github+json" -H "Authorization: token secrets.MY_SECRET" --request POST --data '{"ref": "main"}' https://api.github.com/repos/nagoorbasha7869/myownrepository/actions/workflows/build.yml/dispatches
+      - name: Trigger
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.MY_SECRET }}
+          repository: nagoorbasha7869/myownrepository
+          event-type: hello_world
