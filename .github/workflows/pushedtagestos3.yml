@@ -14,4 +14,4 @@ jobs:
     steps:
       - name: Trigger Test Repo workflow
         run: |
-          response = $(curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.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}}" --request POST --data '{"ref": "main"}' https://api.github.com/repos/{{nagoorbasha7869}}/{{myownrepository}}/actions/workflows/{{build}}.yml/dispatches)
+          response = $(curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.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}}" --request POST --data '{"ref": "main"}' https://api.github.com/repos/nagoorbasha7869/myownrepository/actions/workflows/build.yml/dispatches)
