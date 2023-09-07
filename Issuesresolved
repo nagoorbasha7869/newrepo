@@ -12,7 +12,7 @@ now working on visualizing the status in grafna through eks
 i have verified loki buckets there was no spike in those buckets I have shared the document with sada on this
 resolved k8s crashllop backof error due to dashbaord ingress has changed the stage in ne line remaining lines didn't chage that was cause the isseu
 another issue is crashloop backoff bacasue of java issue and resolved the imagepull back off issue due to iame was not tehre in docker hub
-Implemented the monitoring stack in eks faragte nodes 
+Implemented the monitoring stack in eks faragte nodes
 https://aws.amazon.com/blogs/containers/monitoring-amazon-eks-on-aws-fargate-using-prometheus-and-grafana/
 changes had done in values.yml added the extra configuration for this like excluded the fargate nodes and ingress load balancer ha used in internal
 # Schdule the prometheus node-exporter on all nodes except fargate nodes
