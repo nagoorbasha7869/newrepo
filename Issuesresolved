@@ -1,0 +1,35 @@
+installed all required softwares with vpn connection resolved isuues\
+deployed all services in sandbox environment
+deployed the core idm service in eks cluster usign helm chsrts
+not created load balancers cahnged iam policy
+re deploy the idm service with latest changes
+cretaed a document for all aws servcies deployment and eks service deployment
+written terraform code for update the aws load balancer version with added policy
+all changes are done in loacal raised a pull request and merged in to main succeed in non prod
+requirement for monitoring grafana given demo on aws maanged grafana imported cloudwatch datasource added few dahboads
+installed fargate and eks cluster in my local an tested the fargate node status
+now working on visualizing the status in grafna through eks
+i have verified loki buckets there was no spike in those buckets I have shared the document with sada on this
+resolved k8s crashllop backof error due to dashbaord ingress has changed the stage in ne line remaining lines didn't chage that was cause the isseu
+another issue is crashloop backoff bacasue of java issue and resolved the imagepull back off issue due to iame was not tehre in docker hub
+Implemented the monitoring stack in eks faragte nodes 
+https://aws.amazon.com/blogs/containers/monitoring-amazon-eks-on-aws-fargate-using-prometheus-and-grafana/
+changes had done in values.yml added the extra configuration for this like excluded the fargate nodes and ingress load balancer ha used in internal
+# Schdule the prometheus node-exporter on all nodes except fargate nodes
+prometheus-node-exporter:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: eks.amazonaws.com/compute-type
+              operator: NotIn
+              values:
+                - fargate
+
+# grafana service created as internal load balancer
+grafana:
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
